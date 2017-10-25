@@ -2,12 +2,12 @@ package tech.boxcubed.goblingame.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import tech.boxcubed.goblingame.GoblinGameMain;
+import tech.boxcubed.goblingame.GoblinGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new GoblinGameMain(), config);
+		new LwjglApplication(new GoblinGame(), config);
 		
 		config.resizable=true;
 		config.height=768;
