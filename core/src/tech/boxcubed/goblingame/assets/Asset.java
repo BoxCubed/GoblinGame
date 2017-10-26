@@ -13,6 +13,7 @@ public class Asset<T> {
 
     //public static final Asset<Animation> GOBLIN_ANIM=new Asset<>("anim/goblinAnim.atlas",Animation.class,30);
     public static final Asset<Texture> BADLOGIC=new Asset<>("badlogic.jpg",Texture.class);
+    public static final Asset<Texture> GOBLIN_SHEET=new Asset<>("goblin-sheet.png",Texture.class);
 
     private Asset(String path, Class<? extends T> clazz) {
 

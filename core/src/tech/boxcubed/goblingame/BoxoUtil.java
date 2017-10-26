@@ -180,7 +180,7 @@ public class BoxoUtil implements InputProcessor{
         int i=0;
         for (int width = 0; width < cols; width++) {
             for (int height = 0; height < rows; height++) {
-                ret[i]=regions[height][width];
+                ret[i]=regions[width][height];
                 i++;
             }
         }

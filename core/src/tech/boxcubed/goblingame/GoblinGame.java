@@ -18,7 +18,7 @@ public class GoblinGame extends Game {
 	private Logger logger;
 	private static final int PPM=10;
 	private AssetManager assetManager;
-	public static boolean DEBUG=false;
+	public static boolean DEBUG=true;
 
 
 	public GoblinGame() {
@@ -56,8 +56,8 @@ public class GoblinGame extends Game {
 		}
 		if(DEBUG)
 		assetManager.finishLoading();
-		else assetManager.update();
-		if(assetManager.getProgress()>=1f)
+		//TODO loading
+
 		setScreen(new GameScreen(this));
 
 	}
@@ -81,5 +81,9 @@ public class GoblinGame extends Game {
 
 	public SpriteBatch getBatch() {
 		return batch;
+	}
+
+	public AssetManager getAssetManager() {
+		return assetManager;
 	}
 }
