@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Asset<T> {
     private String path;
-    private Class clazz;
+    private Class<? extends T> clazz;
     private float duration=16;
 
     //public static final Asset<Animation> GOBLIN_ANIM=new Asset<>("anim/goblinAnim.atlas",Animation.class,30);

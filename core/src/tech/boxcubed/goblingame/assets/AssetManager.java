@@ -20,7 +20,7 @@ public class AssetManager extends com.badlogic.gdx.assets.AssetManager {
         setLoader(Animation.class,new AnimationLoader(getFileHandleResolver()));
         for (Field field : Asset.class.getFields()) {
             if(field.getType().getName().equals(Asset.class.getName())){
-                Asset asset= (Asset) field.get(null);
+                Asset<?> asset= (Asset<?>) field.get(null);
                 if(field.getGenericType().getTypeName().equals("Animation")){
                     load(asset.getPath().replaceAll(":anim",""), TextureAtlas.class);
                     load(asset.getPath(),Animation.class,new AnimationLoader.AnimationPrefs(1f/asset.getDuration()));
