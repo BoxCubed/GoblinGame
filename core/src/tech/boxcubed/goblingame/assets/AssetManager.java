@@ -1,7 +1,6 @@
 package tech.boxcubed.goblingame.assets;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import tech.boxcubed.goblingame.GoblinGame;
 
 import java.lang.reflect.Field;
 
@@ -13,22 +12,17 @@ import java.lang.reflect.Field;
 public class AssetManager extends com.badlogic.gdx.assets.AssetManager {
 
 
+    private GoblinGame game;
 
-
-    public AssetManager() throws IllegalAccessException {
+    public AssetManager(GoblinGame game) throws IllegalAccessException {
         super();
-        setLoader(Animation.class,new AnimationLoader(getFileHandleResolver()));
+        this.game = game;
         for (Field field : Asset.class.getFields()) {
             if(field.getType().getName().equals(Asset.class.getName())){
                 Asset<?> asset= (Asset<?>) field.get(null);
-                if(field.getGenericType().getTypeName().equals("Animation")){
-                    load(asset.getPath().replaceAll(":anim",""), TextureAtlas.class);
-                    load(asset.getPath(),Animation.class,new AnimationLoader.AnimationPrefs(1f/asset.getDuration()));
-
-
-                }
-                else
+                game.getLogger().info("Loading asset: "+asset.getPath());
                 load(asset.getPath(),asset.getType());
+
             }
         }
 

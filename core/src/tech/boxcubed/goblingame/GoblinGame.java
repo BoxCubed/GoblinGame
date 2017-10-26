@@ -18,6 +18,7 @@ public class GoblinGame extends Game {
 	private Logger logger;
 	private static final int PPM=10;
 	private AssetManager assetManager;
+	public static boolean DEBUG=false;
 
 
 	public GoblinGame() {
@@ -47,14 +48,16 @@ public class GoblinGame extends Game {
 		BoxoUtil.reset();
 		logger.info("Starting Goblin Game...");
 		try {
-			assetManager=new AssetManager();
+			assetManager=new AssetManager(this);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Gdx.app.exit();
 			return;
 		}
+		if(DEBUG)
 		assetManager.finishLoading();
-
+		else assetManager.update();
+		if(assetManager.getProgress()>=1f)
 		setScreen(new GameScreen(this));
 
 	}

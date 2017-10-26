@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 public class Asset<T> {
     private String path;
     private Class<? extends T> clazz;
-    private float duration=16;
 
     //public static final Asset<Animation> GOBLIN_ANIM=new Asset<>("anim/goblinAnim.atlas",Animation.class,30);
     public static final Asset<Texture> BADLOGIC=new Asset<>("badlogic.jpg",Texture.class);
@@ -19,14 +18,6 @@ public class Asset<T> {
 
         this.path = path;
         this.clazz = clazz;
-    }
-    private Asset(String path,Class<? extends T> clazz,float duration){
-        this(path+":anim",clazz);
-
-
-        this.duration=duration;
-
-
     }
 
     public String getPath() {
@@ -37,7 +28,4 @@ public class Asset<T> {
         return clazz;
     }
 
-    public float getDuration() {
-        return duration;
-    }
 }

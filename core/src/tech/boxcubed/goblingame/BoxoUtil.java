@@ -9,6 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -119,6 +121,7 @@ public class BoxoUtil implements InputProcessor{
      * to look like it's on drugs
      */
     public static void clearScreen(){
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
     /**
@@ -162,6 +165,27 @@ public class BoxoUtil implements InputProcessor{
         cameraPosition.add(target);
 
         cam.position.set(cameraPosition);
+    }
+
+    /**
+     * Converts a texture to a region of several smaller sections. Useful for splitting a spritesheet for an {@link com.badlogic.gdx.graphics.g2d.Animation}
+     * @param texture The texture to split
+     * @param rows the number of rows in the spritesheet
+     * @param cols the number of columns in the spritesheet
+     * @return An array of {@link TextureRegion} to plug into an Animation instance
+     */
+    public static TextureRegion[] toTextureRegionArray(Texture texture, int rows, int cols){
+        TextureRegion[][] regions=TextureRegion.split(texture,texture.getWidth()/cols,texture.getHeight()/rows);
+        TextureRegion[] ret=new TextureRegion[rows*cols];
+        int i=0;
+        for (int width = 0; width < cols; width++) {
+            for (int height = 0; height < rows; height++) {
+                ret[i]=regions[height][width];
+                i++;
+            }
+        }
+        return ret;
+
     }
     @Override
     public boolean keyDown(int keycode) {
