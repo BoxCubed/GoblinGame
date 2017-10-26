@@ -26,3 +26,9 @@ hs_err_pid*
 *.ipr
 *.classpath
 *.project
+
+core/\.settings/
+
+*.prefs
+
+core/
