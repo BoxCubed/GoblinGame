@@ -1,7 +1,6 @@
 package tech.boxcubed.goblingame.assets;
 
 import com.badlogic.gdx.graphics.Texture;
-import javafx.animation.Animation;
 
 /**
  * Created by SimplyBallistic on 26/10/2017.
