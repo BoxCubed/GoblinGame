@@ -178,9 +178,10 @@ public class BoxoUtil implements InputProcessor{
         TextureRegion[][] regions=TextureRegion.split(texture,texture.getWidth()/cols,texture.getHeight()/rows);
         TextureRegion[] ret=new TextureRegion[rows*cols];
         int i=0;
-        for (int width = 0; width < cols; width++) {
+
             for (int height = 0; height < rows; height++) {
-                ret[i]=regions[width][height];
+                for (int width = 0; width < cols; width++) {
+                ret[i]=regions[height][width];
                 i++;
             }
         }
