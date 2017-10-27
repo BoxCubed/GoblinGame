@@ -7,8 +7,15 @@ import com.badlogic.gdx.Screen;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import tech.boxcubed.goblingame.BoxoUtil;
 import tech.boxcubed.goblingame.GoblinGame;
@@ -22,12 +29,41 @@ public class GameScreen implements Screen{
 	private float animationDelta;
 
 	private Animation<TextureRegion> goblinWalkAnim;
+	private Sprite goblinSprite;
+	private Body goblinBody;
+	private Body floorBody;
+	private Box2DDebugRenderer boxRenderer;
+
 
 
 	
 	public GameScreen(GoblinGame game){
 		this.game=game;
 		goblinWalkAnim= new Animation<>(1/10f, BoxoUtil.toTextureRegionArray(game.getAssetManager().getAsset(Asset.GOBLIN_SHEET), 4, 4));
+		world=new World(new Vector2(0f,-0.8f),true);
+		boxRenderer=new Box2DDebugRenderer();
+		goblinSprite=new Sprite(goblinWalkAnim.getKeyFrame(0,false).getTexture(),100,100);
+		//test body
+		BodyDef def=new BodyDef();
+		def.position.set(0,1);
+		def.type= BodyDef.BodyType.DynamicBody;
+		goblinBody=world.createBody(def);
+		PolygonShape shape=new PolygonShape();
+		shape.setAsBox(0.5f,1);
+		FixtureDef fdef=new FixtureDef();
+		fdef.shape=shape;
+		goblinBody.createFixture(fdef);
+
+		def.type= BodyDef.BodyType.StaticBody;
+		def.position.set(0,0);
+		floorBody=world.createBody(def);
+		shape.setAsBox(50,1);
+		fdef.shape=shape;
+		floorBody.createFixture(fdef);
+
+
+
+
 
 
 
@@ -47,23 +83,30 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		animationDelta +=delta;
 		cam.update();
+		world.step(delta,100,100);
 		game.getBatch().setProjectionMatrix(cam.combined);
 		game.getBatch().begin();
 		//game.getBatch().draw(game.getAssetManager().getAsset(Asset.BADLOGIC),0,0);
-		game.getBatch().draw(goblinWalkAnim.getKeyFrame(animationDelta,true),100,0,-100,100);
-		if(Gdx.input.isKeyPressed(Input.Keys.D))
-			cam.position.x-=500*delta;
+		goblinSprite.setRegion(goblinWalkAnim.getKeyFrame(animationDelta,true));
+		goblinSprite.setPosition(goblinBody.getPosition().x*GoblinGame.PPM-1f*GoblinGame.PPM,goblinBody.getPosition().y*GoblinGame.PPM-1f*GoblinGame.PPM);
+		goblinSprite.draw(game.getBatch());
+		if(Gdx.input.isKeyPressed(Input.Keys.D)){
+			//cam.position.x-=500*delta;
+			goblinBody.setLinearVelocity(5,0);
+		}
 		if(Gdx.input.isKeyPressed(Input.Keys.A))
-			cam.position.x+=500*delta;
+			goblinBody.setLinearVelocity(-5,0);
 		if(Gdx.input.isKeyPressed(Input.Keys.W))
-			cam.position.y-=500*delta;
+			goblinBody.setLinearVelocity(0,4);
 		if(Gdx.input.isKeyPressed(Input.Keys.S))
-			cam.position.y+=500*delta;
+			goblinBody.setLinearVelocity(0,-5);
 		//game.getLogger().info(cam.position.x+" "+cam.position.y);
 
 
 
+
 		game.getBatch().end();
+		boxRenderer.render(world,cam.combined);
 
 	}
 
