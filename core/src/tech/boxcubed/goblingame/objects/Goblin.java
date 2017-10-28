@@ -52,12 +52,19 @@ public class Goblin extends SpriteObject {
         animationDelta+=delta;
         getSprite().setRegion(walkAnim.getKeyFrame(animationDelta,true));
         getSprite().setSize(100,100);
+        getSprite().setPosition(getSprite().getX()-50, getSprite().getY()-50);
         
         if(Gdx.input.isKeyPressed(Input.Keys.D) && getBody().getLinearVelocity().x <= 4){
         	 getBody().applyLinearImpulse(new Vector2(0.3f,0), getBody().getWorldCenter(), true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4)
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4){
         	 getBody().applyLinearImpulse(new Vector2(-0.3f,0), getBody().getWorldCenter(), true);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        	for(int counter=0; counter<1; counter++){
+        		 getSprite().flip(true, false);
+        	}		
+        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.W))
             getBody().applyLinearImpulse(new Vector2(0,7f), getBody().getWorldCenter(), true);
         if(Gdx.input.isKeyPressed(Input.Keys.S))
