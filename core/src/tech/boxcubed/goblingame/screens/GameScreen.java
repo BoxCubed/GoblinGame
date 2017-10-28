@@ -1,25 +1,13 @@
 
 package tech.boxcubed.goblingame.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import tech.boxcubed.goblingame.BoxoUtil;
+
 import tech.boxcubed.goblingame.GoblinGame;
-import tech.boxcubed.goblingame.assets.Asset;
 import tech.boxcubed.goblingame.objects.Floor;
 import tech.boxcubed.goblingame.objects.Goblin;
 
@@ -40,7 +28,7 @@ public class GameScreen implements Screen{
 	
 	public GameScreen(GoblinGame game){
 		this.game=game;
-		world=new World(new Vector2(0f,-3),true);
+		world=new World(new Vector2(0f,-14),true);
 		boxRenderer=new Box2DDebugRenderer();
 
 		goblin=new Goblin(game,world,new Vector2(0.5f,2f));
@@ -65,7 +53,7 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		cam.update();
-		world.step(delta,100,100);
+		world.step(delta,6,2);
 		game.getBatch().setProjectionMatrix(cam.combined);
 		game.getBatch().begin();
 		goblin.render(delta);
