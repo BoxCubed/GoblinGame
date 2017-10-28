@@ -54,18 +54,16 @@ public class Goblin extends SpriteObject {
         getSprite().setSize(100,100);
         
         if(Gdx.input.isKeyPressed(Input.Keys.D) && getBody().getLinearVelocity().x <= 4){
-        	 getBody().applyLinearImpulse(new Vector2(0.2f,0), getBody().getWorldCenter(), true);
+        	 getBody().applyLinearImpulse(new Vector2(0.3f,0), getBody().getWorldCenter(), true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4)
-        	 getBody().applyLinearImpulse(new Vector2(-0.2f,0), getBody().getWorldCenter(), true);
+        	 getBody().applyLinearImpulse(new Vector2(-0.3f,0), getBody().getWorldCenter(), true);
         if(Gdx.input.isKeyJustPressed(Input.Keys.W))
             getBody().applyLinearImpulse(new Vector2(0,7f), getBody().getWorldCenter(), true);
         if(Gdx.input.isKeyPressed(Input.Keys.S))
         	 getBody().applyLinearImpulse(new Vector2(0,-0.1f), getBody().getWorldCenter(), true);
         if(!Gdx.input.isKeyPressed(Input.Keys.D)&&!Gdx.input.isKeyPressed(Input.Keys.A)){
-        	getBody().setLinearDamping(6f);
-        }else{
-        	getBody().setLinearDamping(0);
+        	getBody().setLinearVelocity(0,getBody().getLinearVelocity().y);
         }
     }
     
