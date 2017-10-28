@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class GoblinGame extends Game {
 	private SpriteBatch batch;
 	private Logger logger;
-	public static final int PPM=50;
+	public static final int PPM=100;
 	private AssetManager assetManager;
 	public static boolean DEBUG=true;
 

@@ -30,9 +30,12 @@ public class Goblin extends SpriteObject {
 
         FixtureDef fixtureDef=new FixtureDef();
         PolygonShape shape=new PolygonShape();
-        shape.setAsBox(0.5f,0.8f);
-        fixtureDef.shape=shape;
         BodyDef bdef=new BodyDef();
+        
+        shape.setAsBox(0.2f,0.4f);
+        
+        fixtureDef.shape=shape;
+       
         bdef.type= BodyDef.BodyType.DynamicBody;
         bdef.position.set(pos.x,pos.y);
 
@@ -49,16 +52,21 @@ public class Goblin extends SpriteObject {
         animationDelta+=delta;
         getSprite().setRegion(walkAnim.getKeyFrame(animationDelta,true));
         getSprite().setSize(100,100);
-        if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            //cam.position.x-=500*delta;
-            getBody().setLinearVelocity(5,0);
+        
+        if(Gdx.input.isKeyPressed(Input.Keys.D) && getBody().getLinearVelocity().x <= 4){
+        	 getBody().applyLinearImpulse(new Vector2(0.2f,0), getBody().getWorldCenter(), true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
-            getBody().setLinearVelocity(-5,0);
-        if(Gdx.input.isKeyPressed(Input.Keys.W))
-            getBody().setLinearVelocity(0,4);
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4)
+        	 getBody().applyLinearImpulse(new Vector2(-0.2f,0), getBody().getWorldCenter(), true);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W))
+            getBody().applyLinearImpulse(new Vector2(0,7f), getBody().getWorldCenter(), true);
         if(Gdx.input.isKeyPressed(Input.Keys.S))
-            getBody().setLinearVelocity(0,-5);
-
+        	 getBody().applyLinearImpulse(new Vector2(0,-0.1f), getBody().getWorldCenter(), true);
+        if(!Gdx.input.isKeyPressed(Input.Keys.D)&&!Gdx.input.isKeyPressed(Input.Keys.A)){
+        	getBody().setLinearDamping(6f);
+        }else{
+        	getBody().setLinearDamping(0);
+        }
     }
+    
 }
