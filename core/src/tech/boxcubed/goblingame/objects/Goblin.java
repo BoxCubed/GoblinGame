@@ -22,6 +22,7 @@ import tech.boxcubed.goblingame.assets.Asset;
 public class Goblin extends SpriteObject {
     private Animation<TextureRegion> walkAnim;
     private float animationDelta;
+    private boolean flip=false;
     public Goblin(GoblinGame game,World world, Vector2 pos) {
         super(world,game);
         walkAnim= new Animation<>(1 / 10f, BoxoUtil.toTextureRegionArray(game.getAssetManager().getAsset(Asset.GOBLIN_SHEET), 4, 4));
@@ -50,20 +51,23 @@ public class Goblin extends SpriteObject {
     @Override
     public void update(float delta) {
         animationDelta+=delta;
+        if(getBody().getLinearVelocity().isZero()){
+            getSprite().setRegion(walkAnim.getKeyFrames()[4]);
+            animationDelta=5*walkAnim.getFrameDuration();
+        }
+        else
         getSprite().setRegion(walkAnim.getKeyFrame(animationDelta,true));
+
         getSprite().setSize(100,100);
         getSprite().setPosition(getSprite().getX()-50, getSprite().getY()-50);
         
         if(Gdx.input.isKeyPressed(Input.Keys.D) && getBody().getLinearVelocity().x <= 4){
         	 getBody().applyLinearImpulse(new Vector2(0.3f,0), getBody().getWorldCenter(), true);
+            flip=false;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4){
         	 getBody().applyLinearImpulse(new Vector2(-0.3f,0), getBody().getWorldCenter(), true);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
-        	for(int counter=0; counter<1; counter++){
-        		 getSprite().flip(true, false);
-        	}		
+            flip=true;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.W))
             getBody().applyLinearImpulse(new Vector2(0,7f), getBody().getWorldCenter(), true);
@@ -71,7 +75,10 @@ public class Goblin extends SpriteObject {
         	 getBody().applyLinearImpulse(new Vector2(0,-0.1f), getBody().getWorldCenter(), true);
         if(!Gdx.input.isKeyPressed(Input.Keys.D)&&!Gdx.input.isKeyPressed(Input.Keys.A)){
         	getBody().setLinearVelocity(0,getBody().getLinearVelocity().y);
+
         }
+        if(flip)
+            getSprite().flip(true,false);
     }
     
 }

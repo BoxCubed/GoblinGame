@@ -56,6 +56,8 @@ public class GameScreen implements Screen{
 		world.step(delta,6,2);
 		game.getBatch().setProjectionMatrix(cam.combined);
 		game.getBatch().begin();
+
+
 		goblin.render(delta);
 		floor.render(delta);
 
