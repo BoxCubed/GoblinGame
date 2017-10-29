@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import tech.boxcubed.goblingame.BoxoUtil;
 import tech.boxcubed.goblingame.GoblinGame;
 import tech.boxcubed.goblingame.assets.Asset;
+import tech.boxcubed.goblingame.screens.GameScreen;
 
 
 /**
@@ -23,10 +24,10 @@ public class Goblin extends SpriteObject {
     private Animation<TextureRegion> walkAnim;
     private float animationDelta;
     private boolean flip=false;
-    public Goblin(GoblinGame game,World world, Vector2 pos) {
+
+    public Goblin(GoblinGame game, World world, Vector2 pos) {
         super(world,game);
         walkAnim= new Animation<>(1 / 10f, BoxoUtil.toTextureRegionArray(game.getAssetManager().getAsset(Asset.GOBLIN_SHEET), 4, 4));
-
 
 
         FixtureDef fixtureDef=new FixtureDef();
@@ -88,6 +89,14 @@ public class Goblin extends SpriteObject {
         else{
             getSprite().setPosition(getSprite().getX()-40, getSprite().getY()-50);
         }
+        if (game.getScreen() instanceof GameScreen) {
+            GameScreen gameScreen = (GameScreen) game.getScreen();
+            BoxoUtil.lerpToPos(getBody().getPosition().cpy().scl(GoblinGame.PPM), gameScreen.getCam());
+            //game.getLogger().info("Pos: "+gameScreen.getCam().position.x+" "+gameScreen.getCam().position.y);
+
+
+        }
+
     }
     
 }

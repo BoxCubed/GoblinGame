@@ -1,13 +1,11 @@
 
 package tech.boxcubed.goblingame.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
 import tech.boxcubed.goblingame.GoblinGame;
 import tech.boxcubed.goblingame.objects.Floor;
 import tech.boxcubed.goblingame.objects.Goblin;
@@ -16,6 +14,7 @@ public class GameScreen implements Screen{
 	
 	private GoblinGame game;
 	private OrthographicCamera cam;
+
 	private World world;
 
 
@@ -34,10 +33,6 @@ public class GameScreen implements Screen{
 
 		goblin=new Goblin(game,world,new Vector2(0.5f,2f));
 		floor=new Floor(world, game);
-
-
-
-
 
 
 	}
@@ -104,4 +99,7 @@ public class GameScreen implements Screen{
 		
 	}
 
+	public OrthographicCamera getCam() {
+		return cam;
+	}
 }
