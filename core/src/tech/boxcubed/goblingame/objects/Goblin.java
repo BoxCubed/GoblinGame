@@ -58,18 +58,21 @@ public class Goblin extends SpriteObject {
         else
         getSprite().setRegion(walkAnim.getKeyFrame(animationDelta,true));
 
-        getSprite().setSize(100,100);
-        getSprite().setPosition(getSprite().getX()-50, getSprite().getY()-50);
-        
+        getSprite().setSize(100,90);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A)&&Gdx.input.isKeyPressed(Input.Keys.D))
+            getBody().setLinearVelocity(0,getBody().getLinearVelocity().y);
+        else
         if(Gdx.input.isKeyPressed(Input.Keys.D) && getBody().getLinearVelocity().x <= 4){
         	 getBody().applyLinearImpulse(new Vector2(0.3f,0), getBody().getWorldCenter(), true);
             flip=false;
         }
+        else
         if(Gdx.input.isKeyPressed(Input.Keys.A) && getBody().getLinearVelocity().x >= -4){
         	 getBody().applyLinearImpulse(new Vector2(-0.3f,0), getBody().getWorldCenter(), true);
             flip=true;
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W))
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)&&getBody().getLinearVelocity().y==0)
             getBody().applyLinearImpulse(new Vector2(0,7f), getBody().getWorldCenter(), true);
         if(Gdx.input.isKeyPressed(Input.Keys.S))
         	 getBody().applyLinearImpulse(new Vector2(0,-0.1f), getBody().getWorldCenter(), true);
@@ -77,8 +80,14 @@ public class Goblin extends SpriteObject {
         	getBody().setLinearVelocity(0,getBody().getLinearVelocity().y);
 
         }
-        if(flip)
+
+        if(flip){
             getSprite().flip(true,false);
+            getSprite().setPosition(getSprite().getX()-60, getSprite().getY()-50);
+        }
+        else{
+            getSprite().setPosition(getSprite().getX()-40, getSprite().getY()-50);
+        }
     }
     
 }

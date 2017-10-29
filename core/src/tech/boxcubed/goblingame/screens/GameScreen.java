@@ -1,6 +1,7 @@
 
 package tech.boxcubed.goblingame.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -44,7 +45,6 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void show() {
-		game.getLogger().info("Game screen shown");
 
 		// TODO Auto-generated method stub
 		
@@ -68,12 +68,14 @@ public class GameScreen implements Screen{
 
 		game.getBatch().end();
 		boxRenderer.render(world,cam.combined.cpy().scl(GoblinGame.PPM));
-
+		//boxRenderer.render(world,cam.combined.cpy().translate(50, Gdx.graphics.getHeight()-300,0).scl(10));
+		//TODO minimap
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		game.getLogger().info("resized to "+width+"x"+height);
+
 		cam=new OrthographicCamera(width,height);
 		cam.position.x+=width/2;
 		cam.position.y+=height/2;
@@ -82,14 +84,12 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
