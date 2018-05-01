@@ -32,3 +32,27 @@ core/\.settings/
 *.prefs
 
 
+
+\.idea/deployment\.xml
+
+\.idea/gradle\.xml
+
+\.idea/misc\.xml
+
+\.idea/modules\.xml
+
+\.idea/vcs\.xml
+
+\.idea/workspace\.xml
+
+\.idea/compiler\.xml
+
+\.idea/libraries/Gradle__com_badlogicgames_box2dlights_box2dlights_1_4\.xml
+
+\.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_1_9_7\.xml
+
+\.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_lwjgl_1_9_7\.xml
+
+\.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_box2d_1_9_7\.xml
+
+\.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_controllers_1_9_7\.xml
