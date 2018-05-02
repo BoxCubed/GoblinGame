@@ -1,9 +1,11 @@
 
 package tech.boxcubed.goblingame.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import tech.boxcubed.goblingame.GoblinGame;
@@ -14,6 +16,7 @@ public class GameScreen implements Screen{
 	
 	private GoblinGame game;
 	private OrthographicCamera cam;
+	private OrthographicCamera hudCam;
 
 	private World world;
 
@@ -48,6 +51,7 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		cam.update();
+		hudCam.update();
 		world.step(delta,6,2);
 		game.getBatch().setProjectionMatrix(cam.combined);
 		game.getBatch().begin();
@@ -63,6 +67,8 @@ public class GameScreen implements Screen{
 
 		game.getBatch().end();
 		boxRenderer.render(world,cam.combined.cpy().scl(GoblinGame.PPM));
+		hudCam.position.set(hudCam.viewportWidth/4,-hudCam.viewportHeight/3,0);
+		boxRenderer.render(world,hudCam.combined.scl(5));
 		//boxRenderer.render(world,cam.combined.cpy().translate(50, Gdx.graphics.getHeight()-300,0).scl(10));
 		//TODO minimap
 	}
@@ -74,6 +80,10 @@ public class GameScreen implements Screen{
 		cam=new OrthographicCamera(width,height);
 		cam.position.x+=width/2;
 		cam.position.y+=height/2;
+		hudCam=new OrthographicCamera(width,height);
+		hudCam.position.x=10000;
+		hudCam.position.y=10000;
+
 		
 	}
 
