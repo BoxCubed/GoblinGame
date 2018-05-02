@@ -20,7 +20,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = "Goblin Game"
-        gdxVersion = '1.9.7'
+        gdxVersion = '1.9.8'
         roboVMVersion = '2.3.1'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -37,7 +37,10 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-
+    compileJava   {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
     dependencies {
         compile project(":core")
@@ -53,7 +56,10 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
-
+    compileJava   {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
